@@ -36,11 +36,27 @@ global $transactions, $total;
                 }
             echo "</tr>";
         } ?>
-            <tr>
-                    <?php
-                        echo "<td> $total  </td>"
-                    ?>
-            </tr>
+        <tr>
+            <td colspan="4">
+                <?php
+                    echo '<strong>Total Income: </strong>' . addCurr($total['income']) . '<br>' ;
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <?php
+                echo '<strong>Total Expenses: </strong>' . addCurr($total['expense']) . '<br>' ;
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <?php
+                echo  '<strong>Total Amount: </strong>' . addCurr($total['profit']) . '<br>' ;
+                ?>
+            </td>
+        </tr>
         </tbody>
     </table>
 </body>

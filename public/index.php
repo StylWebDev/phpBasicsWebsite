@@ -10,7 +10,9 @@ require APP_PATH . 'app.php';
 
 $files = getTransactionFiles();
 $transactions = formatfTransactions(getTransactions($files[0]));
-$total = calcTotalAmount($transactions);
+$total['income'] = calcIncome($transactions);
+$total['expense'] = calcExpense($transactions);
+$total['profit'] = calcTotalAmount($transactions);
 
 require  VIEWS_PATH . 'styl.php';
 

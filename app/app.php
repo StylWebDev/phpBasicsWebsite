@@ -36,11 +36,34 @@ function formatfTransactions(array $transactions): array {
             date('Y-M-D' , strtotime( str_replace('/','-',$transaction[0]))),
             $transaction[1],
             $transaction[2],
-            (float) str_replace('$','',$transaction[3])
+            (float) str_replace(',', '', str_replace('$','',$transaction[3]))
         ];
     }, $transactions);
 }
 
-function calcTotalAmount(array $transactions) {
-    echo array_reduce($transactions, fn($total, $transaction) => $total + (float) $transaction[0], 0);
+function calcTotalAmount(array $transactions): float {
+    return array_reduce($transactions, fn($total, $transaction) => $total + (float) $transaction[3], 0);
+}
+
+function calcIncome(array $transactions): float {
+    return array_reduce($transactions, function($total, $transaction) {
+        if ($transaction[3] > 0) {
+            return $total + (float) $transaction[3];
+        }
+        return $total + 0;
+    }, 0 );
+}
+function calcExpense(array $transactions): float {
+    return array_reduce($transactions, function($total, $transaction) {
+        if ($transaction[3] < 0) {
+            return $total + (float) $transaction[3];
+        }
+        return $total + 0;
+    }, 0 );}
+
+function addCurr(float $amount): string {
+    if ($amount < 0) {
+        return  '-' . '$' . str_replace('-', '', (string) $amount);
+    }
+    else return '$' . $amount;
 }
